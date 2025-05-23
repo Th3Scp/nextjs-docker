@@ -21,7 +21,7 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /
-COPY --from=deps //node_modules ./node_modules
+COPY --from=deps /node_modules ./node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -47,12 +47,12 @@ WORKDIR /
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder //public ./public
+COPY --from=builder /public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-#COPY --from=builder --chown=nextjs:nodejs //.next/standalone ./
-#COPY --from=builder --chown=nextjs:nodejs //.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /.next/static ./.next/static
 
 USER nextjs
 
