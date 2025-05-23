@@ -41,8 +41,8 @@ COPY --from=builder /public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=base /app/.next/standalone ./
-COPY --from=base /app/public ./public
+COPY --from=base /.next/standalone ./
+COPY --from=base /public ./public
 
 USER nextjs
 
