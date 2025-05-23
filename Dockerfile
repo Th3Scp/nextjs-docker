@@ -17,12 +17,11 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /
 
-# کپی کامل برای standalone اجرا:
 COPY --from=builder /.next/standalone ./
 COPY --from=builder /.next/static ./.next/static
 COPY --from=builder /public ./public
-COPY --from=builder /node_modules ./node_modules  # این خط حیاتی هست!
-COPY package.json ./ # اختیاری
+COPY --from=builder /node_modules ./node_modules
+COPY package.json ./
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
